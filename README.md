@@ -1,42 +1,105 @@
-# AI Resume Screening and Recruitment Management System
+# AI Resume Screening & Recruitment System
 
-An AI-powered web application developed using Django and Python to automate resume screening and candidate evaluation.
+An AI-powered web application built with Python and Django that helps automate the initial resume screening and candidate recruitment process.
 
-## Features
+The system allows candidates to register, upload their resumes, and match their resumes with available jobs. Recruiters can create jobs, evaluate candidates using skill matching and AI-based text similarity, rank candidates, and shortlist suitable candidates.
 
-- User registration and login
+---
+
+## Project Overview
+
+Traditional recruitment can require recruiters to manually review a large number of resumes. This process can be time-consuming and may make it difficult to quickly identify candidates whose skills and experience are relevant to a particular job.
+
+This project aims to automate the initial screening process by extracting information and skills from uploaded resumes and comparing them with job requirements.
+
+The system provides:
+
 - Resume PDF upload
-- Automatic resume text extraction
-- Skill extraction from resumes
-- Job description creation
+- Resume text extraction
+- Skill extraction
+- Job creation
 - Resume and job matching
-- Candidate match score
-- Recruiter dashboard
+- Skill match score
+- AI-based text similarity score
+- Candidate ranking
+- Resume viewing
 - Candidate shortlisting
+- Email notification for shortlisted candidates
+- Candidate and recruiter dashboards
 
-## Technologies Used
+---
+
+## Key Features
+
+### Candidate Features
+
+- Candidate registration
+- Candidate login and logout
+- Candidate dashboard
+- Upload resume in PDF format
+- Resume text and skill extraction
+- View uploaded resumes
+- Match resume with available jobs
+
+### Recruiter Features
+
+- Recruiter dashboard
+- Create job postings
+- Define required skills
+- Select a job for candidate screening
+- Calculate candidate skill match score
+- Calculate AI similarity score
+- Rank candidates
+- View candidate resumes
+- Shortlist candidates
+- Send shortlist notification through email
+
+---
+
+## Technology Stack
+
+### Backend
 
 - Python
 - Django
+
+### Database
+
 - MySQL
+
+### Frontend
+
 - HTML
-- Machine Learning / NLP
-- Git & GitHub
+- CSS
+- Bootstrap
 
-## Project Workflow
+### Resume Processing
 
-1. Candidate registers and logs in.
-2. Candidate uploads a resume in PDF format.
-3. The system extracts text and skills from the resume.
-4. Recruiter creates a job description.
-5. The system compares the resume with the job requirements.
-6. A matching score is generated.
-7. Recruiters can view and shortlist suitable candidates.
+- PDF text extraction
+- Skill extraction
+- Text processing
 
-## Future Enhancements
+### AI / Matching
 
-- Advanced NLP-based resume matching
-- AI-based candidate ranking
-- Email notifications
-- Cloud deployment using AWS
-- CI/CD using Jenkins
+- Text similarity
+- AI-based resume-job similarity
+- Skill-based matching
+
+### Email
+
+- Django Email Backend
+- Gmail SMTP
+
+### Development Tools
+
+- Git
+- GitHub
+- Python Virtual Environment
+
+---
+
+## System Architecture
+
+The application follows a Django-based web application architecture.
+<img width="1536" height="1024" alt="ai" src="https://github.com/user-attachments/assets/19cf06a9-4c91-4511-aac1-fe9920701bbd" />
+
