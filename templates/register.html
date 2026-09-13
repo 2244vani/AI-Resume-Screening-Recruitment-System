@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Candidate Registration</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f5f7fb;
+            color: #1e293b;
+
+            min-height: 100vh;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            padding: 30px 15px;
+        }
+
+        /* Registration Card */
+
+        .register-card {
+            width: 100%;
+            max-width: 480px;
+
+            background: #ffffff;
+
+            padding: 40px;
+
+            border-radius: 16px;
+
+            border: 1px solid #e2e8f0;
+
+            box-shadow: 0 15px 40px rgba(15, 23, 42, 0.08);
+        }
+
+        /* Header */
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .brand {
+            color: #4f46e5;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            margin: 0 0 10px;
+
+            font-size: 30px;
+
+            color: #1e293b;
+        }
+
+        .subtitle {
+            margin: 0;
+
+            color: #64748b;
+
+            font-size: 14px;
+
+            line-height: 1.6;
+        }
+
+        /* Form */
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+
+            margin-bottom: 8px;
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+            color: #334155;
+        }
+
+        input {
+            width: 100%;
+
+            padding: 13px 14px;
+
+            border: 1px solid #cbd5e1;
+
+            border-radius: 8px;
+
+            font-size: 15px;
+
+            color: #1e293b;
+
+            background: #ffffff;
+        }
+
+        input:focus {
+            outline: none;
+
+            border-color: #4f46e5;
+
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.12);
+        }
+
+        /* Register Button */
+
+        .register-button {
+            width: 100%;
+
+            padding: 14px;
+
+            margin-top: 5px;
+
+            border: none;
+
+            border-radius: 8px;
+
+            background: #4f46e5;
+
+            color: #ffffff;
+
+            font-size: 16px;
+
+            font-weight: 600;
+
+            cursor: pointer;
+        }
+
+        .register-button:hover {
+            background: #4338ca;
+        }
+
+        /* Links */
+
+        .links {
+            text-align: center;
+
+            margin-top: 25px;
+        }
+
+        .login-text {
+            color: #64748b;
+
+            font-size: 14px;
+
+            margin-bottom: 15px;
+        }
+
+        .login-link,
+        .home-link {
+            color: #4f46e5;
+
+            text-decoration: none;
+
+            font-weight: 600;
+        }
+
+        .login-link:hover,
+        .home-link:hover {
+            text-decoration: underline;
+        }
+
+        .home-link {
+            display: inline-block;
+
+            margin-top: 12px;
+
+            font-size: 14px;
+        }
+
+        /* Mobile */
+
+        @media (max-width: 600px) {
+
+            body {
+                padding: 20px 15px;
+            }
+
+            .register-card {
+                padding: 30px 22px;
+            }
+
+            h1 {
+                font-size: 26px;
+            }
+
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+    <div class="register-card">
+
+        <div class="header">
+
+            <div class="brand">
+                AI Resume Screening
+            </div>
+
+            <h1>Candidate Registration</h1>
+
+            <p class="subtitle">
+                Create your account and start using our AI-powered
+                resume screening platform.
+            </p>
+
+        </div>
+
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+
+            <div class="form-group">
+
+                <label for="name">
+                    Full Name
+                </label>
+
+                <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    placeholder="Enter your full name"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="email">
+                    Email Address
+                </label>
+
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="Enter your email"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="password">
+                    Password
+                </label>
+
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    placeholder="Create a password"
+                    required
+                >
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="register-button">
+
+                Create Account
+
+            </button>
+
+        </form>
+
+
+        <div class="links">
+
+            <div class="login-text">
+                Already have an account?
+                <a href="{% url 'login' %}" class="login-link">
+                    Login
+                </a>
+            </div>
+
+            <a href="/" class="home-link">
+                ← Back to Home
+            </a>
+
+        </div>
+
+    </div>
+
+</body>
+</html>

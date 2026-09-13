@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Resume Matching</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f7fb;
+            color: #1e293b;
+            min-height: 100vh;
+        }
+
+        /* Navbar */
+        .navbar {
+            background: white;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 8%;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .brand {
+            color: #4f46e5;
+            text-decoration: none;
+            font-size: 21px;
+            font-weight: 700;
+        }
+
+        .dashboard-link {
+            color: #475569;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .dashboard-link:hover {
+            color: #4f46e5;
+        }
+
+        /* Main */
+        .page-container {
+            max-width: 650px;
+            margin: 55px auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        .page-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .page-header .icon {
+            font-size: 42px;
+            margin-bottom: 12px;
+        }
+
+        .page-header h1 {
+            font-size: 34px;
+            margin-bottom: 10px;
+            color: #1e293b;
+        }
+
+        .page-header p {
+            color: #64748b;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        /* Form card */
+        .form-card {
+            background: white;
+            padding: 35px;
+            border-radius: 16px;
+            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.07);
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 9px;
+            color: #334155;
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        .form-group select {
+            width: 100%;
+            padding: 13px 14px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            background: white;
+            color: #334155;
+            font-size: 15px;
+            outline: none;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .form-group select:focus {
+            border-color: #4f46e5;
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.10);
+        }
+
+        /* Calculate button */
+        .match-button {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            background: #4f46e5;
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .match-button:hover {
+            background: #4338ca;
+            transform: translateY(-1px);
+        }
+
+        /* Info box */
+        .info-box {
+            margin-top: 25px;
+            padding: 15px;
+            background: #eef2ff;
+            border-radius: 8px;
+            color: #4338ca;
+            font-size: 13px;
+            line-height: 1.5;
+            text-align: center;
+        }
+
+        /* Back link */
+        .back-section {
+            text-align: center;
+            margin-top: 25px;
+        }
+
+        .back-link {
+            text-decoration: none;
+            color: #64748b;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .back-link:hover {
+            color: #4f46e5;
+        }
+
+        /* Mobile */
+        @media (max-width: 600px) {
+
+            .navbar {
+                padding: 0 20px;
+            }
+
+            .brand {
+                font-size: 17px;
+            }
+
+            .page-container {
+                margin: 35px auto;
+            }
+
+            .form-card {
+                padding: 25px;
+            }
+
+            .page-header h1 {
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- Navigation -->
+<nav class="navbar">
+
+    <a href="{% url 'dashboard' %}" class="brand">
+        🤖 AI Resume Screening
+    </a>
+
+    <a href="{% url 'dashboard' %}" class="dashboard-link">
+        ← Dashboard
+    </a>
+
+</nav>
+
+
+<!-- Main Content -->
+<div class="page-container">
+
+    <!-- Header -->
+    <div class="page-header">
+
+        <div class="icon">
+            🎯
+        </div>
+
+        <h1>
+            Resume Matching
+        </h1>
+
+        <p>
+            Select a resume and a job to calculate the
+            skill match and AI similarity scores.
+        </p>
+
+    </div>
+
+
+    <!-- Matching Form -->
+    <div class="form-card">
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+
+            <!-- Resume Selection -->
+            <div class="form-group">
+
+                <label for="resume">
+                    📄 Select Resume
+                </label>
+
+                <select name="resume" id="resume" required>
+
+                    {% for resume in resumes %}
+
+                        <option value="{{ resume.id }}">
+                            {{ resume.resume_file.name }}
+                        </option>
+
+                    {% endfor %}
+
+                </select>
+
+            </div>
+
+
+            <!-- Job Selection -->
+            <div class="form-group">
+
+                <label for="job">
+                    💼 Select Job
+                </label>
+
+                <select name="job" id="job" required>
+
+                    {% for job in jobs %}
+
+                        <option value="{{ job.id }}">
+                            {{ job.title }}
+                        </option>
+
+                    {% endfor %}
+
+                </select>
+
+            </div>
+
+
+            <!-- Submit -->
+            <button
+                type="submit"
+                class="match-button"
+            >
+                🤖 Calculate Match
+            </button>
+
+        </form>
+
+
+        <!-- Information -->
+        <div class="info-box">
+            The system will compare the selected resume with the
+            job requirements and calculate the matching scores.
+        </div>
+
+    </div>
+
+
+    <!-- Back -->
+    <div class="back-section">
+
+        <a
+            href="{% url 'dashboard' %}"
+            class="back-link"
+        >
+            ← Back to Dashboard
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+</html>

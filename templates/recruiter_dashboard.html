@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Recruiter Dashboard</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f5f7fb;
+            color: #1e293b;
+        }
+
+        /* Navbar */
+        .navbar {
+            background: #ffffff;
+            border-bottom: 1px solid #e2e8f0;
+            padding: 18px 0;
+        }
+
+        .navbar-container {
+            width: 90%;
+            max-width: 1100px;
+            margin: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand {
+            font-size: 22px;
+            font-weight: bold;
+            color: #4f46e5;
+            text-decoration: none;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: #475569;
+            font-weight: 600;
+        }
+
+        .nav-link:hover {
+            color: #4f46e5;
+        }
+
+        /* Main */
+        .container {
+            width: 90%;
+            max-width: 850px;
+            margin: 50px auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .header h1 {
+            margin-bottom: 10px;
+            font-size: 36px;
+        }
+
+        .header p {
+            color: #64748b;
+            font-size: 16px;
+        }
+
+        /* Card */
+        .card {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 35px;
+            box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+            border: 1px solid #e2e8f0;
+        }
+
+        .card h2 {
+            margin-top: 0;
+            margin-bottom: 8px;
+        }
+
+        .card-description {
+            color: #64748b;
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        select {
+            width: 100%;
+            padding: 13px 15px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 15px;
+            background: #ffffff;
+            color: #1e293b;
+        }
+
+        select:focus {
+            outline: none;
+            border-color: #4f46e5;
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.12);
+        }
+
+        /* Button */
+        .btn {
+            width: 100%;
+            border: none;
+            border-radius: 8px;
+            padding: 14px 20px;
+            background: #4f46e5;
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 25px;
+        }
+
+        .btn:hover {
+            background: #4338ca;
+        }
+
+        /* Messages */
+        .alert {
+            margin-top: 20px;
+            padding: 14px 16px;
+            border-radius: 8px;
+            background: #dcfce7;
+            color: #166534;
+            border: 1px solid #bbf7d0;
+            font-weight: 500;
+        }
+
+        /* Back link */
+        .back-section {
+            text-align: center;
+            margin-top: 25px;
+        }
+
+        .back-link {
+            color: #4f46e5;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Info box */
+        .info-box {
+            margin-top: 25px;
+            padding: 16px;
+            border-radius: 10px;
+            background: #eef2ff;
+            color: #3730a3;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* Mobile */
+        @media (max-width: 600px) {
+
+            .navbar-container {
+                width: 92%;
+            }
+
+            .container {
+                width: 92%;
+                margin: 30px auto;
+            }
+
+            .header h1 {
+                font-size: 28px;
+            }
+
+            .card {
+                padding: 25px 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+
+        <div class="navbar-container">
+
+            <a href="{% url 'dashboard' %}" class="brand">
+                AI Resume Screening
+            </a>
+
+            <a href="{% url 'dashboard' %}" class="nav-link">
+                Dashboard
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- Main Content -->
+    <div class="container">
+
+        <div class="header">
+
+            <h1>Recruiter Dashboard</h1>
+
+            <p>
+                Select a job to analyze and rank candidates using AI-powered resume matching.
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <h2>Rank Candidates</h2>
+
+            <p class="card-description">
+                Choose a job position below to calculate candidate skill matches
+                and AI similarity scores.
+            </p>
+
+
+            <form method="POST">
+
+                {% csrf_token %}
+
+                <label for="job">
+                    Select Job
+                </label>
+
+                <select name="job" id="job" required>
+
+                    {% for job in jobs %}
+
+                        <option value="{{ job.id }}">
+                            {{ job.title }}
+                        </option>
+
+                    {% endfor %}
+
+                </select>
+
+
+                <button type="submit" class="btn">
+                    Rank Candidates
+                </button>
+
+
+                {% if messages %}
+
+                    {% for message in messages %}
+
+                        <div class="alert">
+                            {{ message }}
+                        </div>
+
+                    {% endfor %}
+
+                {% endif %}
+
+            </form>
+
+
+            <div class="info-box">
+                <strong>How it works:</strong>
+                Select a job and the system will evaluate candidates based on
+                required skills and AI resume similarity.
+            </div>
+
+        </div>
+
+
+        <div class="back-section">
+
+            <a href="{% url 'dashboard' %}" class="back-link">
+                ← Back to Dashboard
+            </a>
+
+        </div>
+
+    </div>
+
+</body>
+</html>

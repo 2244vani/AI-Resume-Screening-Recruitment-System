@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create Job</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f7fb;
+            color: #1e293b;
+            min-height: 100vh;
+        }
+
+        /* Navigation */
+        .navbar {
+            background: white;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 8%;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .brand {
+            text-decoration: none;
+            color: #4f46e5;
+            font-size: 21px;
+            font-weight: bold;
+        }
+
+        .dashboard-link {
+            text-decoration: none;
+            color: #475569;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .dashboard-link:hover {
+            color: #4f46e5;
+        }
+
+        /* Main container */
+        .page-container {
+            max-width: 850px;
+            margin: 50px auto;
+            padding: 0 20px;
+        }
+
+        /* Heading */
+        .page-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .page-header h1 {
+            font-size: 34px;
+            margin-bottom: 10px;
+            color: #1e293b;
+        }
+
+        .page-header p {
+            color: #64748b;
+            font-size: 15px;
+        }
+
+        /* Form card */
+        .form-card {
+            background: white;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.07);
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 9px;
+            color: #334155;
+            font-weight: 600;
+            font-size: 15px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 13px 14px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 15px;
+            font-family: Arial, sans-serif;
+            outline: none;
+            transition: 0.2s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: #4f46e5;
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.10);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 220px;
+            line-height: 1.6;
+        }
+
+        .form-hint {
+            color: #94a3b8;
+            font-size: 13px;
+            margin-top: 7px;
+        }
+
+        /* Button */
+        .submit-button {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            background: #4f46e5;
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .submit-button:hover {
+            background: #4338ca;
+            transform: translateY(-1px);
+        }
+
+        /* Bottom link */
+        .back-section {
+            text-align: center;
+            margin-top: 25px;
+        }
+
+        .back-link {
+            text-decoration: none;
+            color: #64748b;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .back-link:hover {
+            color: #4f46e5;
+        }
+
+        /* Mobile */
+        @media (max-width: 600px) {
+
+            .navbar {
+                padding: 0 20px;
+            }
+
+            .brand {
+                font-size: 17px;
+            }
+
+            .page-container {
+                margin: 30px auto;
+            }
+
+            .form-card {
+                padding: 25px;
+            }
+
+            .page-header h1 {
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- Navigation -->
+<nav class="navbar">
+
+    <a href="{% url 'dashboard' %}" class="brand">
+        🤖 AI Resume Screening
+    </a>
+
+    <a href="{% url 'dashboard' %}" class="dashboard-link">
+        Dashboard
+    </a>
+
+</nav>
+
+
+<!-- Main Content -->
+<div class="page-container">
+
+    <div class="page-header">
+
+        <h1>💼 Create Job</h1>
+
+        <p>
+            Add a new job opportunity and define the skills required
+            for the position.
+        </p>
+
+    </div>
+
+
+    <div class="form-card">
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+
+            <!-- Job Title -->
+            <div class="form-group">
+
+                <label for="title">
+                    Job Title
+                </label>
+
+                <input
+                    type="text"
+                    id="title"
+                    name="title"
+                    placeholder="e.g. Python Developer"
+                    required
+                >
+
+            </div>
+
+
+            <!-- Job Description -->
+            <div class="form-group">
+
+                <label for="description">
+                    Job Description
+                </label>
+
+                <textarea
+                    id="description"
+                    name="description"
+                    placeholder="Enter the responsibilities, qualifications, experience and other details for this job..."
+                    required
+                ></textarea>
+
+            </div>
+
+
+            <!-- Required Skills -->
+            <div class="form-group">
+
+                <label for="skills">
+                    Required Skills
+                </label>
+
+                <input
+                    type="text"
+                    id="skills"
+                    name="skills"
+                    placeholder="Python, Django, SQL, Git, Docker"
+                    required
+                >
+
+                <div class="form-hint">
+                    Separate multiple skills using commas.
+                </div>
+
+            </div>
+
+
+            <!-- Submit -->
+            <button
+                type="submit"
+                class="submit-button"
+            >
+                Create Job
+            </button>
+
+        </form>
+
+    </div>
+
+
+    <!-- Back to Dashboard -->
+    <div class="back-section">
+
+        <a
+            href="{% url 'dashboard' %}"
+            class="back-link"
+        >
+            ← Back to Dashboard
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+</html>
